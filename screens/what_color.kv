@@ -1,0 +1,34 @@
+<WhatColorScreen>:
+    name: "what_color"
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 15
+
+        MDLabel:
+            text: "Upload an image to find out its main color"
+            font_size: 22
+            color: 0.9, 0.9, 0.9, 1
+            size_hint_y: None
+            height: 40
+        
+        MDFloatLayout:
+            MDRoundFlatIconButton:
+                text: "Open File Manager"
+                icon: "folder"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                on_release: root.open_file_manager()
+
+        Image:
+            source: root.image_path
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: 0.7
+
+        MDLabel:
+            text: root.color_info
+            halign: "center"
+            font_size: 20
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: 40
