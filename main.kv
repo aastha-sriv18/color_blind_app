@@ -1,0 +1,91 @@
+MainScreenManager:
+    id: screen_manager
+    WhatColorScreen:
+    MarBioScreen:
+    EmailsScreen:
+    ElecScreen:
+    CCChartsScreen:
+
+<WhatColorScreen>:
+    name: "WCS"
+    button:
+        text: "Home"
+        on_release: 
+            app.root.current = "WCS"
+<MarBioScreen>:
+    name: "MBS"
+    button:
+        text: "Home"
+        on_release: 
+            app.root.current = "MBS"
+<EmailsScreen>:
+    name: "EMS"
+    button:
+        text: "Home"
+        on_release: 
+            app.root.current = "EMS"
+<ElecScreen>:
+    name: "ELS"
+    button:
+        text: "Home"
+        on_release: 
+            app.root.current = "ELS"
+<CCChartsScreen>:
+    name: "CCS"
+    button:
+        text: "Home"
+        on_release: 
+            app.root.current = "CCS"
+
+
+
+
+MDScreen:
+    md_bg_color: self.theme_cls.secondaryContainerColor
+
+    MDTopAppBar:
+        type: "small"
+        size_hint_x: .8
+        pos_hint: {"center_x": .5, "center_y": .5}
+        elevation: 1
+
+        MDTopAppBarTitle:
+            text: "Color Assist App"
+            halign: "center"
+
+MDBoxLayout:
+    orientation: "vertical"
+    md_bg_color: self.theme_cls.backgroundColor
+    MDBottomNavigation:
+        on_switch_tabs: app.switch_screen(*args)
+
+        MDBottomNavigationItem
+            name: "nav_cc"
+            text: "What Color"
+            icon: "home"
+            on_tab_press: app.root.current = "CCS"
+            active: True
+
+        MDBottomNavigationItem
+            name: "nav_elec"
+            text: "What Color"
+            on_tab_press: app.root.current = "ELS"
+            icon: "twitter"
+
+        MDBottomNavigationItem
+            name: "nav_what_color"
+            text: "What Color"
+            on_tab_press: app.root.current = "WCS"
+            icon: "twitter"
+        
+        MDBottomNavigationItem
+            name: "nav_mar_bio"
+            text: "What Color"
+            on_tab_press: app.root.current = "MBS"
+            icon: "twitter"
+
+        MDBottomNavigationItem
+            name: "nav_emails"
+            text: "What Color"
+            on_tab_press: app.root.current = "EMS"
+            icon: "twitter"

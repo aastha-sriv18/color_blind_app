@@ -1,0 +1,64 @@
+<WhatColorScreen>:
+    name: "what_color"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "10dp"
+        spacing: "10dp"
+
+        MDLabel:
+            text: "Image Color Picker"
+            halign: "center"
+            font_style: "H5"
+            size_hint_y: None
+            height: "40dp"
+
+        # Fixed height for the button container so it doesn't crush the image
+        MDBoxLayout:
+            size_hint_y: None
+            height: "50dp"
+            padding: "5dp"
+            
+            Widget: # Spacer
+            
+            MDRoundFlatIconButton:
+                text: "Select Image"
+                icon: "folder-image"
+                on_release: root.open_file_manager()
+                
+            Widget: # Spacer
+
+        # Image takes remaining space
+        TappableImage:
+            id: color_image
+            source: root.image_path
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: 1 
+
+        MDCard:
+            size_hint_y: None
+            id: color_output_label
+            height: "80dp"
+            md_bg_color: 0.9, 0.9, 0.9, 1
+            radius: [10, 10, 10, 10]
+            elevation: 1
+            padding: "10dp"
+            
+            MDLabel:
+                text: root.color_info
+                halign: "center"
+                theme_text_color: "Primary"
+                font_style: "H6"
+        
+              
+        MDRaisedButton:
+            text: f"Open Color Detail ({root.color_url.split('/')[-1].upper()})" if root.color_url else "Tap image to view color detail"
+            size_hint_x: 0.9  # Make it narrower than full width
+            pos_hint: {'center_x': 0.5}  # Center the button
+            
+            disabled: True if not root.color_url else False
+
+            on_release: root.open_color_url()
+
+            md_bg_color: app.theme_cls.primary_color
