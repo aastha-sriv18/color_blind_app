@@ -3,28 +3,30 @@
 
     MDBoxLayout:
         orientation: "vertical"
-        
+
         MDScrollView:
             size_hint_y: 1
             do_scroll_y: True
-            MDBoxLayout:
 
+            MDBoxLayout:
                 orientation: "vertical"
-                padding: [20,dp(20),20,dp(20)]
+                padding: [20, dp(20), 20, dp(20)]
                 size_hint_y: None
                 adaptive_height: True
                 spacing: dp(10)
 
                 MDLabel:
-                    padding: [10,dp(76),10,20]
                     text: "Upload an image to find out color test"
-                    font_size: 22
-                    color: "black"
+                    font_size: "22sp"
                     halign: "center"
                     size_hint_y: None
-                    height: 40
+                    text_size: self.width, None
+                    height: self.texture_size[1] + dp(16)
 
                 MDFloatLayout:
+                    size_hint_y: None
+                    height: dp(60)
+
                     MDRoundFlatIconButton:
                         text: "Open File Manager"
                         icon: "folder"
@@ -35,38 +37,43 @@
                     id: test_drop_item
                     text: "Select Test Type"
                     pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    size_hint_y: None
+                    height: dp(48)
                     on_release: root.show_test_menu()
 
                 MDRaisedButton:
+                    id: selected_test_btn
                     text: "Selected Test: None"
                     pos_hint: {"center_x": 0.5, "center_y": 0.5}
-                    id: selected_test_btn
+                    size_hint_y: None
+                    height: dp(48)
 
                 MDLabel:
-                    text: "Before You Begin\nTo ensure precise color detection and accurate analysis:\n•Place your test strip or sample on a plain background.\n•Use natural light or soft indoor lighting — avoid harsh glare or dim light\n•Keep the camera steady and centered on the test.\n•Make sure the test area is in focus and fills most of the frame.\n•Avoid shadows or reflections on the strip.\n•Avoid background distractions (hands, tables, or other objects)."
-                    font_size: 22
-                    color: "black"
+                    text: "Before You Begin\nTo ensure precise color detection and accurate analysis:\n• Place your test strip or sample on a plain background.\n• Use natural light or soft indoor lighting — avoid harsh glare or dim light.\n• Keep the camera steady and centered on the test.\n• Make sure the test area is in focus and fills most of the frame.\n• Avoid shadows or reflections on the strip.\n• Avoid background distractions (hands, tables, or other objects)."
+                    font_size: "18sp"
                     halign: "center"
                     size_hint_y: None
-                    height: 40
+                    text_size: self.width, None
+                    height: self.texture_size[1] + dp(16)
 
                 Image:
                     source: root.image_path
                     allow_stretch: True
                     keep_ratio: True
-                    size_hint_y: 0.7
+                    size_hint_y: None
+                    height: dp(240)
 
                 MDLabel:
                     text: root.color_info
                     halign: "center"
-                    font_size: 20
-                    theme_text_color: "Primary"
+                    font_size: "20sp"
                     size_hint_y: None
-                    height: 60
+                    text_size: self.width, None
+                    height: self.texture_size[1] + dp(16)
 
                 MDRaisedButton:
                     text: "Generate Analysis"
                     size_hint_y: None
-                    height: 50
+                    height: dp(50)
                     pos_hint: {"center_x": 0.5}
                     on_release: root.generate_analysis()

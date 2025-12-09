@@ -1,22 +1,11 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivymd.uix.bottomnavigation import MDBottomNavigation, MDBottomNavigationItem
-from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.uix.screen import MDScreen
-
 from screens.what_color import WhatColorScreen
 from screens.cc_charts import CCChartsScreen
 from screens.elec import ElecScreen
 from screens.mar_bio import MarBioScreen
 from screens.emails import EmailsScreen
-
-#class WhatColorScreen(Screen): pass
-#class CCChartsScreen(Screen): pass
-#class ElecScreen(Screen): pass
-#class MarBioScreen(Screen): pass
-#class EmailsScreen(Screen): pass
-
-class MainScreenManager(ScreenManager): pass
 
 
 KV = '''
@@ -27,72 +16,67 @@ MDScreen:
 
         MDTopAppBar:
             title: "App Name"
-            size_hint_y: None
-            height: dp(56)
-            id: top_bar
+            elevation: 2
+            pos_hint: {"top": 1}
 
-
-
-        ScreenManager:
-            id: screen_manager
-
-            CCChartsScreen:
-                name: "cc_charts"
-
-            ElecScreen:
-                name: "elec"
-
-            WhatColorScreen:
-                name: "what_color"
-
-            MarBioScreen:
-                name: "mar_bio"
-
-            EmailsScreen:
-                name: "emails"
-
-
-
+        # The MDBottomNavigation acts as the ScreenManager
         MDBottomNavigation:
-            #panel_color: "#eeeaea"
             selected_color_background: "orange"
             text_color_active: "lightgrey"
 
+            # --- TAB 1: Charts ---
             MDBottomNavigationItem:
-                name: 'screen 1'
+                name: 'screen_charts'
                 text: 'Charts'
                 icon: 'chart-bar'
-                on_tab_press: screen_manager.current = "cc_charts"
+                
+                # We simply place the screen class here
+                CCChartsScreen:
 
+            # --- TAB 2: Electrical ---
             MDBottomNavigationItem:
-                name: 'screen 2'
+                name: 'screen_elec'
                 text: 'Electrical'
-                icon: 'Electrical Services'
-                on_tab_press: screen_manager.current = "elec"
+                icon: 'lightning-bolt' # specific icon names might need checking
+                
+                ElecScreen:
 
+            # --- TAB 3: Color (The Fix) ---
             MDBottomNavigationItem:
-                name: 'screen 3'
+                name: 'screen_color'
                 text: 'Color'
-                icon: 'home'
-                on_tab_press: screen_manager.current = "what_color"
-            
-            MDBottomNavigationItem:
-                name: 'screen 4'
-                text: 'Marine Bio'
-                icon: 'Water Ph'
-                on_tab_press: screen_manager.current = "mar_bio"
+                icon: 'eyedropper'
+                
+                WhatColorScreen:
 
-            
+            # --- TAB 4: Marine Bio ---
             MDBottomNavigationItem:
-                name: 'screen 5'
+                name: 'screen_mar_bio'
+                text: 'Marine Bio'
+                icon: 'fish'
+                
+                MarBioScreen:
+
+            # --- TAB 5: Emails ---
+            MDBottomNavigationItem:
+                name: 'screen_emails'
                 text: 'Mail'
                 icon: 'gmail'
-                on_tab_press: screen_manager.current = "emails"
+                
+                EmailsScreen:
 '''
 
 class ColorAssistApp(MDApp):
     def build(self):
+        # Load the specific KV file for the color screen
+        # Make sure screens/what_color.kv exists
+        Builder.load_file("screens/what_color.kv")
+        
+        # Optional: Set a theme color
+        self.theme_cls.primary_palette = "Blue"
+        
         return Builder.load_string(KV)
+
 
 if __name__ == '__main__':
     ColorAssistApp().run()
