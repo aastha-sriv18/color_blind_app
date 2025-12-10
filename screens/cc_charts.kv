@@ -2,6 +2,80 @@
     name: "cc_charts"
     MDBoxLayout:
         orientation: "vertical"
+        spacing: 10
+        padding: 15
+
         MDLabel:
-            text: "charts"
+            text: "Color-Coded Chart Accessibility"
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 1
+            font_style: "H6"
             halign: "center"
+
+        MDLabel:
+            text: "Upload an image to generate easy readable chart"
+            font_size: "22sp"
+            halign: "center"
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1] + dp(16)
+
+        MDFloatLayout:
+            size_hint_y: None
+            height: dp(60)
+
+            MDRoundFlatIconButton:
+                text: "Open File Manager"
+                icon: "folder"
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                on_release: root.open_file_manager()
+
+        FitImage:
+            id: image_preview
+            source: ""
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: 1 
+
+        MDRaisedButton:
+            id: cb_drop_item
+            text: "Select Color Blindness"
+            pos_hint: {"center_x": 0.5}
+            size_hint_y: None
+            height: dp(48)
+            on_release: root.show_cb_menu()
+
+        MDRaisedButton:
+            id: selected_cb_btn
+            text: "Selected Color Blindness: None"
+            pos_hint: {"center_x": 0.5}
+            size_hint_y: None
+            height: dp(48)
+
+        MDRaisedButton:
+            text: "Generate Accessible Chart"
+            md_bg_color: 0.2, 0.6, 1, 1
+            pos_hint: {"center_x": 0.5}
+            on_release: root.generate_chart()
+
+        MDLabel:
+            id: status_label
+            text: ""
+            markup: True
+            halign: "center"
+            pos_hint: {"center_x": 0.5}
+
+        FitImage:
+            id: result_image
+            source: ""
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: 1 
+
+        MDRaisedButton:
+            text: "Download Chart"
+            pos_hint: {"center_x": 0.5}
+            size_hint_y: None
+            height: dp(48)
+            on_release: root.download_chart()
+
